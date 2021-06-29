@@ -44,6 +44,7 @@ pipeline {
             steps {
                 echo 'creating infrastructure for the Application'
                 sh "aws cloudformation create-stack --region ${AWS_REGION} --stack-name ${AWS_STACK_NAME} --capabilities CAPABILITY_IAM --template-body file://${CFN_TEMPLATE} --parameters ParameterKey=KeyPairName,ParameterValue=${CFN_KEYPAIR}"
+            }
             script {
                 while(true) {
                         
@@ -61,6 +62,7 @@ pipeline {
         stage('Test the infrastructure') {
             steps {
                 echo "Testing if the Docker Swarm is ready or not, by checking Viz App on Grand Master with Public Ip Address: ${MASTER_INSTANCE_PUBLIC_IP}:8080"
+            }
             script {
                 while(true) {
                     try {
